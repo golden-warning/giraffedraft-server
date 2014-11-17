@@ -1,9 +1,52 @@
 var path = require('path');
 var picker = require('../picker/picker.js')
 var fs = require('fs')
+var cookieSession = require('cookie-session');
+
+var FantasySports = require('FantasySports');
+FantasySports.options({
+    "accessTokenUrl": "https://api.login.yahoo.com/oauth/v2/get_request_token",
+    "requestTokenUrl": "https://api.login.yahoo.com/oauth/v2/get_token",
+    "oauthKey": 'dj0yJmk9bXluWHZ1bXFoOGFDJmQ9WVdrOVlXSTBkVlZTTm1VbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0yNA--',
+    "oauthSecret": '568e13369b8c9bc7c2d8d3185dec8245755691a7',
+    "version": "1.0",
+    "callback": "http://giraffedraft.azurewebsites.net/auth/oauth/callback",
+    "encryption": "HMAC-SHA1"
+});
+
+// app.get("/auth/oauth")
+exports.oauth = function(req, res) {
+    FantasySports.startAuth(req, res);
+};
+
+// app.get("/auth/oauth/callback")
+exports.authorize = function(req, res) {
+    FantasySports.endAuth(req, res);
+};
+
+
+exports.myTeams = function(req, res) {
+    FantasySports
+        .request(req, res)
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games;game_keys=nfl/leagues?format=json')
+        .done(function(data) {
+            var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues,
+                leagues = [];
+
+            _.each(leagueData, function(value) {
+                if (value.league) leagues.push(value.league[0]);
+            });
+
+            res.json(leagues);
+        });
+};
 
 module.exports = function (app, express) {
-
+	app.use(cookieSession({ 
+	    key: 'some key', 
+	    secret: 'some secret', 
+	    proxy: true 
+	}));
 	// Use the client folder as the root public folder.
 	// This allows client/index.html to be used on the / route.
 	app.use(express.static(__dirname + '/../../client'));
@@ -26,6 +69,9 @@ module.exports = function (app, express) {
 
 	});
 
+	app.get("/auth/oauth", exports.oauth);
+
+	app.get("/auth/oauth/callback", exports.authorize);
 
 	// hit this link for suggestions
 	app.post("/api/suggest", function (req, res) {
@@ -42,3 +88,5 @@ module.exports = function (app, express) {
 		})
 	});
 };
+
+
