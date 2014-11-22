@@ -21,25 +21,78 @@ exports.oauth = function(req, res) {
 
 // app.get("/auth/oauth/callback")
 exports.authorize = function(req, res) {
-    console.log(exports.myTeams(req,res),'1');
     FantasySports.endAuth(req, res);
-    console.log(exports.myTeams(req,res), '2');
 };
 
 
 exports.myTeams = function(req, res) {
     FantasySports
         .request(req, res)
-        .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games;game_keys=nfl/leagues?format=json')
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games;game_keys=nba/leagues?format=json')
         .done(function(data) {
             var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues,
                 leagues = [];
+		console.log('game[0]',data.fantasy_content.users[0].user[1].games[0].game[0])
+		console.log('league[0]',data.fantasy_content.users[0].user[1].games[0].game[1].leagues[0].league)
+		console.log('league[1]',data.fantasy_content.users[0].user[1].games[0].game[1].leagues[1].league)
+		console.log('league[2]',data.fantasy_content.users[0].user[1].games[0].game[1].leagues[2].league)
+            //_.each(leagueData, function(value) {
+            //    if (value.league) leagues.push(value.league[0]);
+            //});
+            //console.log('leagues', leagues);
+            res.json(data);
+        });
+};
 
-            _.each(leagueData, function(value) {
-                if (value.league) leagues.push(value.league[0]);
-            });
+exports.myLeagues = function(req, res) {
+    FantasySports
+        .request(req, res)
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.91924?format=json')
+        .done(function(data) {
+            //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
+            var league;
+		console.log('my league',data.fantasy_content.league[0])
+            //_.each(leagueData, function(value) {
+            //    if (value.league) leagues.push(value.league[0]);
+            //});
+            //console.log('leagues', leagues);
+            res.json(data);
+        });
+};
 
-            res.json(leagues);
+exports.myStandings = function(req, res) {
+    FantasySports
+        .request(req, res)
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.91924/standings?format=json')
+        .done(function(data) {
+            //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
+            var league;
+		console.log('standings6',data.fantasy_content.league[1].standings[0].teams[6]);
+		console.log('standings7',data.fantasy_content.league[1].standings[0].teams[7].team[0][0]);
+		console.log('standings8',data.fantasy_content.league[1].standings[0].teams[8]);
+            //_.each(leagueData, function(value) {
+            //    if (value.league) leagues.push(value.league[0]);
+            //});
+            //console.log('leagues', leagues);
+            res.json(data);
+        });
+};
+
+exports.myTeam = function(req, res) {
+    FantasySports
+        .request(req, res)
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.91924.t.5?format=json')
+        .done(function(data) {
+            //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
+            var league;
+		console.log('standings6',data.fantasy_content.league);
+		console.log('standings7',data.fantasy_content.league);
+		console.log('standings8',data.fantasy_content.league);
+            //_.each(leagueData, function(value) {
+            //    if (value.league) leagues.push(value.league[0]);
+            //});
+            //console.log('leagues', leagues);
+            res.json(data);
         });
 };
 
@@ -74,6 +127,14 @@ module.exports = function (app, express) {
 	app.get("/auth/oauth", exports.oauth);
 
 	app.get("/auth/oauth/callback", exports.authorize);
+	
+	app.get("/myteams", exports.myTeams);
+	
+	app.get("/myleagues", exports.myLeagues);
+	
+	app.get("/mystandings", exports.myStandings);
+	
+	app.get("/myteam", exports.myTeam);
 
 	// hit this link for suggestions
 	app.post("/api/suggest", function (req, res) {
@@ -90,5 +151,3 @@ module.exports = function (app, express) {
 		})
 	});
 };
-
-
