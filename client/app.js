@@ -35,6 +35,7 @@
     .controller('gDController', function($scope, services){
     	$scope.text = 'http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.91924.t.5?format=json'
     	$scope.makeRequest = function(link){
+    		console.log(link)
     		services.apiRequest(link).then(function(data){
     			console.log(data);
     		})
