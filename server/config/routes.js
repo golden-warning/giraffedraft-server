@@ -30,17 +30,12 @@ exports.myTeams = function(req, res) {
         .request(req, res)
         .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games;game_keys=nba/leagues?format=json')
         .done(function(data) {
-            var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues,
-                leagues = [];
-		console.log('game[0]',data.fantasy_content.users[0].user[1].games[0].game[0])
-		console.log('league[0]',data.fantasy_content.users[0].user[1].games[0].game[1].leagues[0].league)
-		console.log('league[1]',data.fantasy_content.users[0].user[1].games[0].game[1].leagues[1].league)
-		console.log('league[2]',data.fantasy_content.users[0].user[1].games[0].game[1].leagues[2].league)
+            var leagues = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
             //_.each(leagueData, function(value) {
             //    if (value.league) leagues.push(value.league[0]);
             //});
             //console.log('leagues', leagues);
-            res.json(data);
+            res.json(leagues);
         });
 };
 
@@ -49,13 +44,13 @@ exports.myMatchups = function(req, res) {
         .request(req, res)
         .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.91924.t.5/matchups?format=json')
         .done(function(data) {
-            //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
+            var matchups = data.fantasy_content.team[1].matchups
             
             //_.each(leagueData, function(value) {
             //    if (value.league) leagues.push(value.league[0]);
             //});
             //console.log('leagues', leagues);
-            res.json(data);
+            res.json(matchups);
         });
 };
 
@@ -95,15 +90,11 @@ exports.myStandings = function(req, res) {
         .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.91924/standings?format=json')
         .done(function(data) {
             //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
-            var league;
-		console.log('standings6',data.fantasy_content.league[1].standings[0].teams[6]);
-		console.log('standings7',data.fantasy_content.league[1].standings[0].teams[7].team[0][0]);
-		console.log('standings8',data.fantasy_content.league[1].standings[0].teams[8]);
-            //_.each(leagueData, function(value) {
+            var standings = data.fantasy_content.league[1].standings[0].teams;
             //    if (value.league) leagues.push(value.league[0]);
             //});
             //console.log('leagues', leagues);
-            res.json(data);
+            res.json(standings);
         });
 };
 
