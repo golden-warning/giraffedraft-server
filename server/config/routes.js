@@ -54,35 +54,22 @@ exports.myMatchups = function(req, res) {
         });
 };
 
-exports.myUser = function(req, res) {
-    FantasySports
-        .request(req, res)
-        .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1?format=json')
-        .done(function(data) {
-            //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
 
-            //_.each(leagueData, function(value) {
-            //    if (value.league) leagues.push(value.league[0]);
-            //});
-            //console.log('leagues', leagues);
-            res.json(data);
-        });
-};
 
-exports.myLeagueTeams = function(req, res) {
-    FantasySports
-        .request(req, res)
-        .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.91924/teams?format=json')
-        .done(function(data) {
-            //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
+// exports.myLeagueTeams = function(req, res) {
+//     FantasySports
+//         .request(req, res)
+//         .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.91924/teams?format=json')
+//         .done(function(data) {
+//             //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
 
-            //_.each(leagueData, function(value) {
-            //    if (value.league) leagues.push(value.league[0]);
-            //});
-            //console.log('leagues', leagues);
-            res.json(data);
-        });
-};
+//             //_.each(leagueData, function(value) {
+//             //    if (value.league) leagues.push(value.league[0]);
+//             //});
+//             //console.log('leagues', leagues);
+//             res.json(data);
+//         });
+// };
 
 exports.myStandings = function(req, res) {
     FantasySports
@@ -98,23 +85,23 @@ exports.myStandings = function(req, res) {
         });
 };
 
-exports.myTeam = function(req, res) {
-    FantasySports
-        .request(req, res)
-        .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.91924.t.5?format=json')
-        .done(function(data) {
-            //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
-            var league;
-		console.log('standings6',data.fantasy_content.league);
-		console.log('standings7',data.fantasy_content.league);
-		console.log('standings8',data.fantasy_content.league);
-            //_.each(leagueData, function(value) {
-            //    if (value.league) leagues.push(value.league[0]);
-            //});
-            //console.log('leagues', leagues);
-            res.json(data);
-        });
-};
+// exports.myTeam = function(req, res) {
+//     FantasySports
+//         .request(req, res)
+//         .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.91924.t.5?format=json')
+//         .done(function(data) {
+//             //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
+//             var league;
+// 		console.log('standings6',data.fantasy_content.league);
+// 		console.log('standings7',data.fantasy_content.league);
+// 		console.log('standings8',data.fantasy_content.league);
+//             //_.each(leagueData, function(value) {
+//             //    if (value.league) leagues.push(value.league[0]);
+//             //});
+//             //console.log('leagues', leagues);
+//             res.json(data);
+//         });
+// };
 
 module.exports = function (app, express) {
 	app.use(cookieSession({ 
