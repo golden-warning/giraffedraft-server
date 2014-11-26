@@ -50,8 +50,7 @@ exports.myMatchups = function(req, res) {
         .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.91924.t.5/matchups?format=json')
         .done(function(data) {
             //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
-            var league;
-		console.log('my league',data.fantasy_content.league[0])
+            
             //_.each(leagueData, function(value) {
             //    if (value.league) leagues.push(value.league[0]);
             //});
