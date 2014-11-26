@@ -44,10 +44,10 @@ exports.myTeams = function(req, res) {
         });
 };
 
-exports.myLeagues = function(req, res) {
+exports.myMatchups = function(req, res) {
     FantasySports
         .request(req, res)
-        .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.91924?format=json')
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.91924.t.5/matchups?format=json')
         .done(function(data) {
             //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
             var league;
@@ -160,7 +160,7 @@ module.exports = function (app, express) {
 	
 	app.get("/myteams", exports.myTeams);
 	
-	app.get("/myleagues", exports.myLeagues);
+	app.get("/mymatchups", exports.myMatchups);
 	
 	app.get("/mystandings", exports.myStandings);
 	
