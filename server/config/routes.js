@@ -75,10 +75,10 @@ exports.myUser = function(req, res) {
         });
 };
 
-exports.myUserNoJSON = function(req, res) {
+exports.myLeagueTeams = function(req, res) {
     FantasySports
         .request(req, res)
-        .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1')
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.91924/teams?format=json')
         .done(function(data) {
             //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
 
@@ -168,7 +168,7 @@ module.exports = function (app, express) {
 	
 	app.get("/myuser", exports.myUser);
 	
-	app.get("/myusernojson", exports.myUserNoJSON);
+	app.get("/myleagueteams", exports.myLeagueTeams);
 
 	// hit this link for suggestions
 	app.post("/api/suggest", function (req, res) {
