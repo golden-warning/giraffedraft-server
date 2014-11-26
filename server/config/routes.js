@@ -60,6 +60,36 @@ exports.myLeagues = function(req, res) {
         });
 };
 
+exports.myUser = function(req, res) {
+    FantasySports
+        .request(req, res)
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1?format=json')
+        .done(function(data) {
+            //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
+
+            //_.each(leagueData, function(value) {
+            //    if (value.league) leagues.push(value.league[0]);
+            //});
+            //console.log('leagues', leagues);
+            res.json(data);
+        });
+};
+
+exports.myUserNoJSON = function(req, res) {
+    FantasySports
+        .request(req, res)
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1')
+        .done(function(data) {
+            //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
+
+            //_.each(leagueData, function(value) {
+            //    if (value.league) leagues.push(value.league[0]);
+            //});
+            //console.log('leagues', leagues);
+            res.json(data);
+        });
+};
+
 exports.myStandings = function(req, res) {
     FantasySports
         .request(req, res)
@@ -135,6 +165,10 @@ module.exports = function (app, express) {
 	app.get("/mystandings", exports.myStandings);
 	
 	app.get("/myteam", exports.myTeam);
+	
+	app.get("/myuser", exports.myUser);
+	
+	app.get("/myusernojson", exports.myUserNoJSON);
 
 	// hit this link for suggestions
 	app.post("/api/suggest", function (req, res) {
