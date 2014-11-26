@@ -35,9 +35,9 @@ exports.myTeams = function(req, res) {
             var teams = {}
             for(var league in leagues) {
             	leagueName = leagues[league]
-            	teams[leagueName] = {}
+            	teams[league] = leagues[0]
             }
-            res.json(leagues[0]);
+            res.json(teams);
         })
            
 };
