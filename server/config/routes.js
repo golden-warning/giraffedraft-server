@@ -26,21 +26,20 @@ exports.authorize = function(req, res) {
 
 
 exports.myTeams = function(req, res) {
+	var teams = {}
     FantasySports
         .request(req, res)
         .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games;game_keys=nba/leagues?format=json')
         .then(function(data) {
            console.log(data);
             var leagues = data.fantasy_content.users[0].user[1].games[0].game[1].leagues;
-            return leagues;
+            for(var league in leagues) {
+            	leagueName = leagues[league].league[0].name
+            	teams[leagueName] = {}
+            }
+        }).then(function(){
+        	res.json(teams);
         })
-    	.then(function(data){
-    		res.json(data)
-    	})
-            //_.each(leagueData, function(value) {
-            //    if (value.league) leagues.push(value.league[0]);
-            //});
-            //console.log('leagues', leagues);
            
 };
 
