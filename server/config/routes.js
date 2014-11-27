@@ -35,13 +35,32 @@ exports.myTeams = function(req, res) {
             var teams = {}
             for(var league in leagues) {
             	if (league !== 'count') {
-	          leagueName = leagues[league].league;
-	          teams[league] = leagueName[0].name;
+	          leagueInfo = leagues[league].league[0];
+	          teams[leagueInfo.name] = {'league_key':leagueInfo.league_key};
+	          FantasySports
+	          	.request(req,res)
+	          	.api('http://fantasysports.yahooapis.com/fantasy/v2/league/' + leagueInfo.league_key + '/standings?format=json')
+	          	.then(function(data){
+	          		for (key in data){
+	          			var team = data[key].team[0];
+	          			if(team[3].is_owned_by_current_login) {
+	          				teams[leagueInfo.name].team_key = team[0].team_key;
+	          				teams[leagueInfo.name].name = team[2].name;
+	          				teams[leagueInfo.name].team_logo_url = team[5].team_logos[0].team_logo.url;
+	          				teams[leagueInfo.name].rank = key+1
+	          			}
+	          		}
+	          		var allSettled = true;
+	          		for(team in teams){
+	          			allSettled = (teams[team].name) && allSettled;
+	          		}
+	          		if (allSettled) {
+	          			res.json(teams)
+	          		}
+	          	})
             	}
             }
-            //res.json('test');
-            //res.json(leagues[0].league[0].name)
-            res.json(teams);
+            return teams;
         })
            
 };
