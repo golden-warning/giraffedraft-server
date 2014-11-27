@@ -37,6 +37,7 @@ exports.myTeams = function(req, res) {
             	if (league !== 'count') {
 	          leagueInfo = leagues[league].league[0];
 	          teams[leagueInfo.name] = {'league_key':leagueInfo.league_key};
+	          console.log('test')
 	          res.json(teams);
 	          FantasySports
 	          	.request(req,res)
