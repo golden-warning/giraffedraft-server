@@ -34,7 +34,7 @@ exports.myTeams = function(req, res) {
             var leagues = data.fantasy_content.users[0].user[1].games[0].game[1].leagues;
             var teams = {}
             for(var league in leagues) {
-            	leagueName = leagues[league].league;
+            	leagueName = leagues[league].league[0];
             	teams[league] = leagueName;
             }
             res.json(teams);
