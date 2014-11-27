@@ -60,7 +60,6 @@ exports.myTeams = function(req, res) {
 	          	})
             	}
             }
-            return teams;
         })
            
 };
