@@ -37,6 +37,7 @@ exports.myTeams = function(req, res) {
             	if (league !== 'count') {
 	          leagueInfo = leagues[league].league[0];
 	          teams[leagueInfo.name] = {'league_key':leagueInfo.league_key};
+	          res.json(teams);
 	          FantasySports
 	          	.request(req,res)
 	          	.api('http://fantasysports.yahooapis.com/fantasy/v2/league/' + leagueInfo.league_key + '/standings?format=json')
