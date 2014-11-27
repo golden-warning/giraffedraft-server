@@ -35,6 +35,8 @@ exports.myTeams = function(req, res) {
             var teams = {}
             for(var league in leagues) {
             	leagueName = leagues[league].league;
+            	// error here when accessing leagueName[0]
+            	res.json(leagueName);
             	teams[league] = leagueName[0].name;
             }
             //res.json('test');
