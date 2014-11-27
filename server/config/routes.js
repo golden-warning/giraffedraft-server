@@ -30,15 +30,12 @@ exports.myTeams = function(req, res) {
         .request(req, res)
         .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games;game_keys=nba/leagues?format=json')
         .then(function(data) {
-           console.log(data);
             var leagues = data.fantasy_content.users[0].user[1].games[0].game[1].leagues;
             var teams = {}
             for(var league in leagues) {
             	if (league !== 'count') {
 	          leagueInfo = leagues[league].league[0];
 	          teams[leagueInfo.name] = {'league_key':leagueInfo.league_key};
-	          console.log('test')
-	          res.json(teams);
 	          FantasySports
 	          	.request(req,res)
 	          	.api('http://fantasysports.yahooapis.com/fantasy/v2/league/' + leagueInfo.league_key + '/standings?format=json')
