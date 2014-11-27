@@ -34,13 +34,14 @@ exports.myTeams = function(req, res) {
             var leagues = data.fantasy_content.users[0].user[1].games[0].game[1].leagues;
             var teams = {}
             for(var league in leagues) {
-            	leagueName = leagues[league].league;
-            	// error here when accessing leagueName[0]
-            	res.json(leagueName[0]);
-            	teams[league] = leagueName[0].name;
+            	if (league !== 'count') {
+	          leagueName = leagues[league].league;
+	          teams[league] = leagueName[0].name;
+            	}
             }
             //res.json('test');
-            res.json(leagues[0].league[0].name)
+            //res.json(leagues[0].league[0].name)
+            res.json(teams);
         })
            
 };
