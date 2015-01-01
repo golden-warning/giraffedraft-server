@@ -12,12 +12,8 @@
 	        .then(function(data, status, headers, config) {
             var leagues = data.data
             console.log("apiRequest", data.data);
-            //for (league in leagues) {
-              return $http.post(teamInfo, 342.l.91924)
-                .then(function(data,status,headers,config){
-                  return data;
-                })
-            //}
+
+            return leagues;
 	      });
 
         }
