@@ -103,6 +103,22 @@ exports.myStandings = function(req, res) {
         });
 };
 
+exports.myTeamInfo = function(req, res) {
+
+    res.json(req.body);
+    // FantasySports
+    //     .request(req, res)
+    //     .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.91924/standings?format=json')
+    //     .done(function(data) {
+    //         //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
+    //         var standings = data.fantasy_content.league[1].standings[0].teams;
+    //         //    if (value.league) leagues.push(value.league[0]);
+    //         //});
+    //         //console.log('leagues', leagues);
+    //         res.json(standings);
+    //     });
+};
+
 exports.myTeam = function(req, res) {
     FantasySports
         .request(req, res)
@@ -163,7 +179,10 @@ module.exports = function (app, express) {
 	
 	app.get("/myuser", exports.myUser);
 	
-	app.get("/myleagueteams", exports.myLeagueTeams);
+    app.get("/myleagueteams", exports.myLeagueTeams);
+	
+    app.get("/myteaminfo", exports.myTeamInfo);
+
 
 	// hit this link for suggestions
 	app.post("/api/suggest", function (req, res) {
