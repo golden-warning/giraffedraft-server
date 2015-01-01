@@ -36,7 +36,7 @@
     angular.module('giraffeDraft', ['gDraft.services'])
     .controller('gDController', function($scope, services){
 
-    	$scope.text = myteams;
+    	$scope.text = 'myteams';
       $scope.leagues;
     	$scope.makeRequest = function(link){
     		console.log(link)
