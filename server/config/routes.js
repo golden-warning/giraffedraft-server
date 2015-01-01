@@ -29,7 +29,7 @@ exports.myTeams = function(req, res) {
     FantasySports
         .request(req, res)
         .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games;game_keys=nba/leagues?format=json')
-        .done(function(data) {
+        .then(function(data) {
             var leagues = data.fantasy_content.users[0].user[1].games[0].game[1].leagues;
             var teams = {}
             for(var league in leagues) {
