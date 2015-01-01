@@ -39,6 +39,9 @@ exports.myTeams = function(req, res) {
 	          
             	}
             }
+            return teams;
+        })
+        .then(function(teams){
             res.json(teams);
         })
            
