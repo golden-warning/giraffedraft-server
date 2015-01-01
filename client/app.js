@@ -18,9 +18,10 @@
 
         }
 
-        function getSuggestions(undrafted){
-          return $http.post('http://giraffedraft.azurewebsites.net/api/suggest', undrafted)
+        function getTeamInfo(leagueKey){
+          return $http.post('myteaminfo', leagueKey)
             .then(function(data, status, headers,config) {
+              console.log("getTeamInfo", data);
             	return data.data;
             })
 
@@ -34,16 +35,18 @@
     
     angular.module('giraffeDraft', ['gDraft.services'])
     .controller('gDController', function($scope, services){
-    	$scope.text;
+      
+    	$scope.text = myteams;
       $scope.leagues;
     	$scope.makeRequest = function(link){
     		console.log(link)
     		services.apiRequest(link).then(function(data){
     			$scope.leagues = data;
           console.log($scope.leagues);
-
     		})
+        services.getTeamInfo(342.l.91924);
     	}
+
     })
 
 }).call(this);
