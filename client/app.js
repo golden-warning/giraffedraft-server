@@ -29,7 +29,7 @@
 
       return {
         apiRequest: apiRequest,
-        getSuggestions: getSuggestions
+        getTeamInfo: getTeamInfo
       };
     });
     
