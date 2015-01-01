@@ -29,36 +29,17 @@ exports.myTeams = function(req, res) {
     FantasySports
         .request(req, res)
         .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games;game_keys=nba/leagues?format=json')
-        .then(function(data) {
+        .done(function(data) {
             var leagues = data.fantasy_content.users[0].user[1].games[0].game[1].leagues;
             var teams = {}
             for(var league in leagues) {
             	if (league !== 'count') {
-	          leagueInfo = leagues[league].league[0];
-	          teams[leagueInfo.name] = {'league_key':leagueInfo.league_key};
-	          FantasySports
-	          	.request(req,res)
-	          	.api('http://fantasysports.yahooapis.com/fantasy/v2/league/' + leagueInfo.league_key + '/standings?format=json')
-	          	.then(function(data){
-	          		for (key in data){
-	          			var team = data[key].team[0];
-	          			if(team[3].is_owned_by_current_login) {
-	          				teams[leagueInfo.name].team_key = team[0].team_key;
-	          				teams[leagueInfo.name].name = team[2].name;
-	          				teams[leagueInfo.name].team_logo_url = team[5].team_logos[0].team_logo.url;
-	          				teams[leagueInfo.name].rank = key+1
-	          			}
-	          		}
-	          		var allSettled = true;
-	          		for(team in teams){
-	          			allSettled = (teams[team].name) && allSettled;
-	          		}
-	          		if (allSettled) {
-	          			res.json(teams)
-	          		}
-	          	})
+	               leagueInfo = leagues[league].league[0];
+	               teams[leagueInfo.name] = {'league_key':leagueInfo.league_key};
+	          
             	}
             }
+            res.json(teams);
         })
            
 };
