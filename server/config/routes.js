@@ -46,7 +46,7 @@ exports.myTeams = function(req, res) {
 
 exports.myTeamInfo = function(req, res) {
 
-    res.json(req.body.config.data);
+    res.json(req.body.config);
     // FantasySports
     //     .request(req, res)
     //     .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.91924/standings?format=json')
