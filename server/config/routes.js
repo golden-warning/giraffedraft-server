@@ -182,7 +182,7 @@ module.exports = function (app, express) {
 	
     app.get("/myleagueteams", exports.myLeagueTeams);
 	
-    app.get("/myteaminfo", exports.myTeamInfo);
+    app.post("/myteaminfo", exports.myTeamInfo);
 
 
 	// hit this link for suggestions
