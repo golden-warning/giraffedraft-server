@@ -39,7 +39,7 @@ exports.myTeams = function(req, res) {
 	          
             	}
             }
-            res.json(leagues);
+            res.json(teams);
         })
            
 };
